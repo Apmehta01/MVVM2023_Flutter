@@ -5,8 +5,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mydemomvvm/utils/Constants.dart';
 
 class UiUtils {
-
-
   static toastSuccessMessage(String message) {
     Fluttertoast.showToast(
         msg: message,
@@ -69,5 +67,14 @@ class UiUtils {
   static snackBar(String message, BuildContext context) {
     return ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(backgroundColor: Colors.red, content: Text(message)));
+  }
+
+  static void fieldFocusChange(
+    BuildContext context,
+    FocusNode current,
+    FocusNode next,
+  ) {
+    current.unfocus();
+    FocusScope.of(context).requestFocus(next);
   }
 }

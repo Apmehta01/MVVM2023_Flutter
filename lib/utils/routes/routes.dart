@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mydemomvvm/utils/Constants.dart';
 import 'package:mydemomvvm/utils/routes/routes_name.dart';
 import 'package:mydemomvvm/view/home_screen.dart';
-import 'package:mydemomvvm/view/login_screen.dart';
+import 'package:mydemomvvm/view/login_view.dart';
 
 class Routes {
 
@@ -10,7 +10,7 @@ class Routes {
     switch (settings.name) {
       case RoutesName.login:
         return MaterialPageRoute(
-            builder: (BuildContext context) => const LoginScreen());
+            builder: (BuildContext context) => const LoginView());
       case RoutesName.home:
         return MaterialPageRoute(
             builder: (BuildContext context) => const HomeScreen());
