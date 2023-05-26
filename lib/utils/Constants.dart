@@ -7,4 +7,5 @@ class Constants {
   static const String INTERNET_ISSUE="Internet Issue";
   static const String SERVER_NOT_REACHABLE = "Server not reachable";
   static const String NO_SCREEN_FOUND = "No Screen Found!";
+  static const String FLUSH_TIME_OUT = "3";
 }

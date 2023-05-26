@@ -16,7 +16,7 @@ class Routes {
             builder: (BuildContext context) => const HomeScreen());
       default:
         return MaterialPageRoute(builder: (_) {
-          return Scaffold(
+          return const Scaffold(
             body: Center(
               child: Text(Constants.NO_SCREEN_FOUND),
             ),
