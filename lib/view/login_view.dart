@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:mydemomvvm/res/components/round_button.dart';
 import 'package:mydemomvvm/utils/Constants.dart';
 import 'package:mydemomvvm/utils/uiUtils.dart';
-
+import 'package:mydemomvvm/viewmodel/auth_view_model.dart';
+import 'package:mydemomvvm/web/network/request/loginRequest.dart';
+import 'package:provider/provider.dart';
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
 
@@ -30,7 +32,7 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height * 1;
+    final authViewModel=Provider.of<AuthViewModel>(context);
 
     return Scaffold(
         backgroundColor: Colors.white,
@@ -58,7 +60,7 @@ class _LoginViewState extends State<LoginView> {
                       const SizedBox(
                         height: 50,
                       ),
-                      downButton(),
+                      downButton(authViewModel),
                       const SizedBox(
                         height: 30,
                       ),
@@ -70,61 +72,6 @@ class _LoginViewState extends State<LoginView> {
             ),
           ),
         ));
-  }
-
-  Widget textFormFields() {
-    return Column(
-      children: <Widget>[
-        Container(
-          padding: const EdgeInsets.all(8.0),
-          decoration: const BoxDecoration(
-              border: Border(
-                  bottom: BorderSide(
-                      color: Color.fromRGBO(143, 148, 251, 1), width: 2))),
-          child: TextFormField(
-            controller: emailController,
-            keyboardType: TextInputType.emailAddress,
-            focusNode: emailFocusNode,
-            decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: Constants.HINT_EMAIL,
-                labelText: Constants.HINT_EMAIL,
-                prefixIcon: const Icon(Icons.email_outlined,color: Color.fromRGBO(143, 148, 251, 1)),
-                hintStyle: TextStyle(color: Colors.grey[400])),
-            onFieldSubmitted: (value) {
-              UiUtils.fieldFocusChange(
-                  context, emailFocusNode, passwordFocusNode);
-            },
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.all(8.0),
-          child: ValueListenableBuilder(
-              valueListenable: obsecurePassword,
-              builder: (context, value, child) {
-                return TextFormField(
-                  controller: passwordController,
-                  obscureText: value,
-                  focusNode: passwordFocusNode,
-                  obscuringCharacter: '*',
-                  decoration: InputDecoration(
-                      hintText: Constants.HINT_PASSWORD,
-                      labelText: Constants.HINT_PASSWORD,
-                      border: InputBorder.none,
-                      hintStyle: TextStyle(color: Colors.grey[400]),
-                      prefixIcon: const Icon(Icons.lock_outline_rounded,color: Color.fromRGBO(143, 148, 251, 1),),
-                      suffixIcon: InkWell(
-                          onTap: () {
-                            obsecurePassword.value = !obsecurePassword.value;
-                          },
-                          child: Icon(obsecurePassword.value
-                              ? Icons.visibility_off_outlined
-                              : Icons.visibility))),
-                );
-              }),
-        )
-      ],
-    );
   }
 
   Widget headerDesign() {
@@ -186,8 +133,64 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  Widget downButton() {
+  Widget textFormFields() {
+    return Column(
+      children: <Widget>[
+        Container(
+          padding: const EdgeInsets.all(8.0),
+          decoration: const BoxDecoration(
+              border: Border(
+                  bottom: BorderSide(
+                      color: Color.fromRGBO(143, 148, 251, 1), width: 2))),
+          child: TextFormField(
+            controller: emailController,
+            keyboardType: TextInputType.emailAddress,
+            focusNode: emailFocusNode,
+            decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: Constants.HINT_EMAIL,
+                labelText: Constants.HINT_EMAIL,
+                prefixIcon: const Icon(Icons.email_outlined,color: Color.fromRGBO(143, 148, 251, 1)),
+                hintStyle: TextStyle(color: Colors.grey[400])),
+            onFieldSubmitted: (value) {
+              UiUtils.fieldFocusChange(
+                  context, emailFocusNode, passwordFocusNode);
+            },
+          ),
+        ),
+        Container(
+          padding: const EdgeInsets.all(8.0),
+          child: ValueListenableBuilder(
+              valueListenable: obsecurePassword,
+              builder: (context, value, child) {
+                return TextFormField(
+                  controller: passwordController,
+                  obscureText: value,
+                  focusNode: passwordFocusNode,
+                  obscuringCharacter: '*',
+                  decoration: InputDecoration(
+                      hintText: Constants.HINT_PASSWORD,
+                      labelText: Constants.HINT_PASSWORD,
+                      border: InputBorder.none,
+                      hintStyle: TextStyle(color: Colors.grey[400]),
+                      prefixIcon: const Icon(Icons.lock_outline_rounded,color: Color.fromRGBO(143, 148, 251, 1),),
+                      suffixIcon: InkWell(
+                          onTap: () {
+                            obsecurePassword.value = !obsecurePassword.value;
+                          },
+                          child: Icon(obsecurePassword.value
+                              ? Icons.visibility_off_outlined
+                              : Icons.visibility,color: Color.fromRGBO(143, 148, 251, 1)))),
+                );
+              }),
+        )
+      ],
+    );
+  }
+
+  Widget downButton(AuthViewModel authViewModel) {
     return RoundButton(
+      loading: authViewModel.loading,
       title: Constants.LOGIN_TITLE,
       onPress: () {
         if (emailController.text.isEmpty) {
@@ -196,6 +199,12 @@ class _LoginViewState extends State<LoginView> {
           UiUtils.flushBarError(Constants.PASSWORD_EMPTY_ERROR, context);
         } else if (passwordController.text.length < 6) {
           UiUtils.flushBarError(Constants.PASSWORD_LENGTH_ERROR, context);
+        }else{
+          // dynamic loginRequest=LoginRequest(email:emailController.text,password: passwordController.text );
+          LoginRequest loginRequest=LoginRequest();
+          loginRequest.email=emailController.text.toString();
+          loginRequest.password=passwordController.text.toString();
+          authViewModel.loginApi(loginRequest.performRequest(),context);
         }
       },
     );
