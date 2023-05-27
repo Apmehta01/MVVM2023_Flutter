@@ -4,6 +4,7 @@ import 'package:mydemomvvm/utils/Constants.dart';
 import 'package:mydemomvvm/utils/routes/routes_name.dart';
 import 'package:mydemomvvm/view/home_screen.dart';
 import 'package:mydemomvvm/view/login_view.dart';
+import 'package:mydemomvvm/view/signup_view.dart';
 
 class Routes {
 
@@ -18,6 +19,9 @@ class Routes {
       case RoutesName.homePage:
         return MaterialPageRoute(
             builder: (BuildContext context) => HomePage());
+      case RoutesName.signup_screen:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const SignupView());
       default:
         return MaterialPageRoute(builder: (_) {
           return const Scaffold(

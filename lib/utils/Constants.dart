@@ -14,9 +14,12 @@ class Constants {
   static const String EMAIL_EMPTY_ERROR="Please enter Email";
   static const String PASSWORD_EMPTY_ERROR="Please enter Password";
   static const String PASSWORD_LENGTH_ERROR="Please enter 6 digit password ";
-  static String FORGOT_PASSWORD="Forgot Password?";
-
+  static const String FORGOT_PASSWORD="Forgot Password?";
+  static const String REGISTER_LABEL="Don't Have Account Sign up?";
+  static const String SIGN_UP_TITLE="Sign Up";
+  static const String STR_LOGIN_BACK="Already have an account Log in";
   /*Api End Points*/
   static String STR_LOGIN="/api/login";
   static String STR_REGISTER="/api/register";
+
 }

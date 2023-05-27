@@ -1,3 +1,5 @@
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mydemomvvm/res/components/round_button.dart';
 import 'package:mydemomvvm/utils/Constants.dart';
@@ -5,17 +7,18 @@ import 'package:mydemomvvm/utils/routes/routes_name.dart';
 import 'package:mydemomvvm/utils/uiUtils.dart';
 import 'package:mydemomvvm/viewmodel/auth_view_model.dart';
 import 'package:mydemomvvm/web/model/request/loginRequest.dart';
+import 'package:mydemomvvm/web/model/request/signUpRequest.dart';
 import 'package:provider/provider.dart';
 
 import '../animations/FadeAnimation.dart';
-class LoginView extends StatefulWidget {
-  const LoginView({Key? key}) : super(key: key);
+class SignupView extends StatefulWidget {
+  const SignupView({Key? key}) : super(key: key);
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  State<SignupView> createState() => _SignupViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _SignupViewState extends State<SignupView> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -46,7 +49,7 @@ class _LoginViewState extends State<LoginView> {
                 headerDesign(),
                 Padding(
                   padding: const EdgeInsets.all(30.0),
-                  child: FadeAnimation(1.8, Column(
+                  child: FadeAnimation(1.8,Column(
                     children: <Widget>[
                       textFormFields(),
                       const SizedBox(
@@ -56,7 +59,7 @@ class _LoginViewState extends State<LoginView> {
                       const SizedBox(
                         height: 30,
                       ),
-                      registerAccount()
+                      gotoLogin()
                     ],
                   )),
                 )
@@ -104,21 +107,21 @@ class _LoginViewState extends State<LoginView> {
               decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage('assets/images/clock.png'))),
-            )),
-          ),
+            ),
+          )),
           Positioned(
             child: FadeAnimation(1.6,Container(
               margin: const EdgeInsets.only(top: 50),
               child: Center(
                 child: Text(
-                  Constants.LOGIN_TITLE.toUpperCase(),
+                  Constants.SIGN_UP_TITLE.toUpperCase(),
                   style: const TextStyle(
                       color: Colors.white,
                       fontSize: 40,
                       fontWeight: FontWeight.bold),
                 ),
-              ),
-            )),
+              )),
+            ),
           )
         ],
       ),
@@ -195,7 +198,7 @@ class _LoginViewState extends State<LoginView> {
   Widget downButton(AuthViewModel authViewModel) {
     return FadeAnimation(2,RoundButton(
       loading: authViewModel.loading,
-      title: Constants.LOGIN_TITLE,
+      title: Constants.SIGN_UP_TITLE,
       onPress: () {
         if (emailController.text.isEmpty) {
           UiUtils.flushBarError(Constants.EMAIL_EMPTY_ERROR, context);
@@ -204,22 +207,22 @@ class _LoginViewState extends State<LoginView> {
         } else if (passwordController.text.length < 6) {
           UiUtils.flushBarError(Constants.PASSWORD_LENGTH_ERROR, context);
         }else{
-          LoginRequest loginRequest=LoginRequest();
-          loginRequest.email=emailController.text.toString();
-          loginRequest.password=passwordController.text.toString();
-          authViewModel.loginApi(loginRequest.performRequest(),context);
+          SignUpRequest signUpRequest=SignUpRequest();
+          signUpRequest.email=emailController.text.toString();
+          signUpRequest.password=passwordController.text.toString();
+          authViewModel.signUpApi(signUpRequest.performRequest(),context);
         }
       },
     ));
   }
 
-  Widget registerAccount() {
+  Widget gotoLogin() {
     return FadeAnimation(1.5,InkWell(
       onTap: (){
-        Navigator.pushNamed(context, RoutesName.signup_screen);
+        Navigator.pushNamed(context, RoutesName.login);
       },
       child: Text(
-        Constants.REGISTER_LABEL,
+        Constants.STR_LOGIN_BACK,
         style: const TextStyle(
             color: Color.fromRGBO(143, 148, 251, 1), fontWeight: FontWeight.bold),
       ),

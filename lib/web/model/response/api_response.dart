@@ -1,4 +1,4 @@
-import 'package:mydemomvvm/web/network/response/status.dart';
+import 'package:mydemomvvm/web/model/response/status.dart';
 
 class APIResponse<T> {
   Status? status;
