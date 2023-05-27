@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mydemomvvm/utils/routes/routes.dart';
 import 'package:mydemomvvm/utils/routes/routes_name.dart';
-import 'package:mydemomvvm/view/login_view.dart';
 
 void main() {
   runApp(const MyApp());

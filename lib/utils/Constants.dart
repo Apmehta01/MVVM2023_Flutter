@@ -14,4 +14,6 @@ class Constants {
   static const String EMAIL_EMPTY_ERROR="Please enter Email";
   static const String PASSWORD_EMPTY_ERROR="Please enter Password";
   static const String PASSWORD_LENGTH_ERROR="Please enter 6 digit password ";
+
+  static String FORGOT_PASSWORD="Forgot Password?";
 }

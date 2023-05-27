@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mydemomvvm/test/homePage.dart';
 import 'package:mydemomvvm/utils/Constants.dart';
 import 'package:mydemomvvm/utils/routes/routes_name.dart';
 import 'package:mydemomvvm/view/home_screen.dart';
@@ -14,6 +15,9 @@ class Routes {
       case RoutesName.home:
         return MaterialPageRoute(
             builder: (BuildContext context) => const HomeScreen());
+      case RoutesName.homePage:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => HomePage());
       default:
         return MaterialPageRoute(builder: (_) {
           return const Scaffold(
