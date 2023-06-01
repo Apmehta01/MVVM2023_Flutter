@@ -5,11 +5,15 @@ import 'package:mydemomvvm/utils/routes/routes_name.dart';
 import 'package:mydemomvvm/view/home_screen.dart';
 import 'package:mydemomvvm/view/login_view.dart';
 import 'package:mydemomvvm/view/signup_view.dart';
+import 'package:mydemomvvm/view/splash_screen.dart';
 
 class Routes {
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case RoutesName.splash:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const SplashScreen());
       case RoutesName.login:
         return MaterialPageRoute(
             builder: (BuildContext context) => const LoginView());

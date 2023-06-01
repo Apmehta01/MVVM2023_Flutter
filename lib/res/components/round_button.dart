@@ -22,15 +22,26 @@ class RoundButton extends StatelessWidget {
         height: 40,
         width: 200,
         decoration: BoxDecoration(color: AppColors.buttonColor,
-            borderRadius: BorderRadius.circular(10),gradient: const LinearGradient(colors: [
-              Color.fromRGBO(143, 148, 251, 1),
-              Color.fromRGBO(143, 148, 251, .6),
+            borderRadius: BorderRadius.circular(10),gradient: LinearGradient(colors: [
+              AppColors.COLORS_PRIMARY_ONE,
+              AppColors.COLORS_PRIMARY_TWO,
             ])),
         child: Center(
-          child: loading?const CircularProgressIndicator(color: Colors.white,):Text(title.toUpperCase(),style: const TextStyle(
-            color: AppColors.whiteColor,
-            fontWeight: FontWeight.bold
-          ),),
+          child: loading?const CircularProgressIndicator(color: Colors.white,):Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+            Icon(
+            Icons.lock_outline_rounded,
+            size: 20,
+            color: Colors.white,
+          ),SizedBox(width: 10,),
+              Text(title.toUpperCase(),style: const TextStyle(
+                  color: AppColors.whiteColor,
+                  fontWeight: FontWeight.bold
+              ),)
+            ],
+          ),
         ),
       ),
     );

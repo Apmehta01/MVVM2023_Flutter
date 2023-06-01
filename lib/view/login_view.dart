@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mydemomvvm/res/appColors.dart';
 import 'package:mydemomvvm/res/components/round_button.dart';
 import 'package:mydemomvvm/utils/Constants.dart';
 import 'package:mydemomvvm/utils/routes/routes_name.dart';
@@ -132,8 +133,8 @@ class _LoginViewState extends State<LoginView> {
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
-            const BoxShadow(
-                color: Color.fromRGBO(143, 148, 251, .2),
+            BoxShadow(
+                color: AppColors.COLORS_PRIMARY_TWO,
                 blurRadius: 20.0,
                 offset: Offset(0, 10))
           ]),
@@ -141,10 +142,10 @@ class _LoginViewState extends State<LoginView> {
         children: <Widget>[
           Container(
             padding: const EdgeInsets.all(8.0),
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
                 border: Border(
                     bottom: BorderSide(
-                        color: Color.fromRGBO(143, 148, 251, 1), width: 2))),
+                        color: AppColors.COLORS_PRIMARY_ONE, width: 2))),
             child: TextFormField(
               controller: emailController,
               keyboardType: TextInputType.emailAddress,
@@ -153,7 +154,7 @@ class _LoginViewState extends State<LoginView> {
                   border: InputBorder.none,
                   hintText: Constants.HINT_EMAIL,
                   labelText: Constants.HINT_EMAIL,
-                  prefixIcon: const Icon(Icons.email_outlined,color: Color.fromRGBO(143, 148, 251, 1)),
+                  prefixIcon: Icon(Icons.email_outlined,color: AppColors.COLORS_PRIMARY_ONE),
                   hintStyle: TextStyle(color: Colors.grey[400])),
               onFieldSubmitted: (value) {
                 UiUtils.fieldFocusChange(
@@ -176,14 +177,14 @@ class _LoginViewState extends State<LoginView> {
                         labelText: Constants.HINT_PASSWORD,
                         border: InputBorder.none,
                         hintStyle: TextStyle(color: Colors.grey[400]),
-                        prefixIcon: const Icon(Icons.lock_outline_rounded,color: Color.fromRGBO(143, 148, 251, 1),),
+                        prefixIcon: Icon(Icons.lock_outline_rounded,color: AppColors.COLORS_PRIMARY_ONE,),
                         suffixIcon: InkWell(
                             onTap: () {
                               obsecurePassword.value = !obsecurePassword.value;
                             },
                             child: Icon(obsecurePassword.value
                                 ? Icons.visibility_off_outlined
-                                : Icons.visibility,color: Color.fromRGBO(143, 148, 251, 1)))),
+                                : Icons.visibility,color: AppColors.COLORS_PRIMARY_ONE))),
                   );
                 }),
           )
@@ -193,7 +194,8 @@ class _LoginViewState extends State<LoginView> {
   }
 
   Widget downButton(AuthViewModel authViewModel) {
-    return FadeAnimation(2,RoundButton(
+    return FadeAnimation(2,
+        RoundButton(
       loading: authViewModel.loading,
       title: Constants.LOGIN_TITLE,
       onPress: () {
@@ -210,7 +212,9 @@ class _LoginViewState extends State<LoginView> {
           authViewModel.loginApi(loginRequest.performRequest(),context);
         }
       },
-    ));
+    )
+
+    );
   }
 
   Widget registerAccount() {
@@ -220,8 +224,8 @@ class _LoginViewState extends State<LoginView> {
       },
       child: Text(
         Constants.REGISTER_LABEL,
-        style: const TextStyle(
-            color: Color.fromRGBO(143, 148, 251, 1), fontWeight: FontWeight.bold),
+        style: TextStyle(
+            color: AppColors.COLORS_PRIMARY_ONE, fontWeight: FontWeight.bold),
       ),
     ));
   }

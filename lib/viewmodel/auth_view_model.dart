@@ -3,14 +3,15 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:mydemomvvm/repositories/auth_repository.dart';
+import 'package:mydemomvvm/web/repositories/auth_repository.dart';
 import 'package:mydemomvvm/utils/routes/routes_name.dart';
 import 'package:mydemomvvm/utils/uiUtils.dart';
+import 'package:mydemomvvm/viewmodel/user_view_model.dart';
+import 'package:mydemomvvm/web/model/response/loginResponse.dart';
+import 'package:provider/provider.dart';
 
 class AuthViewModel with ChangeNotifier{
-
   final _myRepo=AuthRepository();
-
   bool _loading=false;
   bool get loading=>_loading;
   setLoading(bool loading){
@@ -26,10 +27,18 @@ class AuthViewModel with ChangeNotifier{
   }
 
   Future<void> loginApi(dynamic data,BuildContext context) async{
+    final userPreference = Provider.of<UserViewModel>(context , listen: false);
+
     setLoading(true);
     _myRepo.loginApi(data).then((value){
       setLoading(false);
       UiUtils.flushBarSuccess(value.toString(),context);
+      userPreference.saveUser(
+          LoginResponse(
+              token: value['token'].toString()
+          )
+      );
+
       // Future<void>.delayed(const Duration(milliseconds: 500), gotoHome(context));
       Timer(const Duration(seconds: 4), () {
         gotoHome(context);

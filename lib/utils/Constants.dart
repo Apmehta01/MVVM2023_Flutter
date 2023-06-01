@@ -21,5 +21,16 @@ class Constants {
   /*Api End Points*/
   static String STR_LOGIN="/api/login";
   static String STR_REGISTER="/api/register";
+  static String STR_HOME_SCREEN='api/?results=15';
+
+  static var STR_MVVMDEMO="MVVM DEMO";
+  static const String KEY_TOKEN="TOKEN";
+
+  static String LOGOUT="Logout";
+
+  static String APP_NAME="MVVM DEMO 2023";
+
+  static var NO_DATA_FOUND="No Data Found!";
+
 
 }
